@@ -174,6 +174,16 @@
   .right-dock{position:absolute;top:12px;right:12px;width:268px;z-index:500;
     display:flex;flex-direction:column;gap:10px;
     max-height:calc(100% - 24px);overflow-y:auto;padding-right:2px}
+  /* Không cho panel co lại. Mặc định flex-shrink:1 khiến chúng bị nén cho vừa
+     chiều cao dock, mà .panel lại overflow:hidden nên nội dung bị CẮT IM LẶNG
+     thay vì dock sinh thanh cuộn. */
+  .right-dock > .panel{flex:0 0 auto}
+  /* Thanh cuộn mảnh, đỡ chiếm chỗ trên panel hẹp */
+  .right-dock::-webkit-scrollbar{width:8px}
+  .right-dock::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+  .right-dock::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+  /* Phần chú giải thêm cũng có thể dài — cho nó tự cuộn */
+  #legendExtra{max-height:230px;overflow-y:auto}
 
   /* ---------- tab ---------- */
   .tabs{display:flex;border-bottom:1px solid var(--line);background:#fafbfc}
@@ -406,11 +416,11 @@
     <!-- ============ CỤM PANEL PHẢI ============ -->
     <div class="right-dock">
 
-      <section class="panel" id="panel-legend">
+      <section class="panel collapsed" id="panel-legend">
         <div class="p-head">
           <h2>Chú giải</h2>
           <button class="collapse" data-collapse="panel-legend"
-                  aria-expanded="true" aria-label="Thu gọn panel Chú giải">−</button>
+                  aria-expanded="false" aria-label="Mở panel Chú giải">+</button>
         </div>
         <div class="p-body">
           <p class="sect-t" style="margin-top:0">Mưa</p>
@@ -424,11 +434,11 @@
         </div>
       </section>
 
-      <section class="panel" id="panel-base">
+      <section class="panel collapsed" id="panel-base">
         <div class="p-head">
           <h2>Bản đồ nền</h2>
           <button class="collapse" data-collapse="panel-base"
-                  aria-expanded="true" aria-label="Thu gọn panel Bản đồ nền">−</button>
+                  aria-expanded="false" aria-label="Mở panel Bản đồ nền">+</button>
         </div>
         <div class="p-body">
           <label class="opt"><input class="rad" type="radio" name="basemap" value="basic" checked>
@@ -445,11 +455,11 @@
         </div>
       </section>
 
-      <section class="panel" id="panel-other">
+      <section class="panel collapsed" id="panel-other">
         <div class="p-head">
           <h2>Lớp dữ liệu khác</h2>
           <button class="collapse" data-collapse="panel-other"
-                  aria-expanded="true" aria-label="Thu gọn panel Lớp dữ liệu khác">−</button>
+                  aria-expanded="false" aria-label="Mở panel Lớp dữ liệu khác">+</button>
         </div>
         <div class="p-body">
           <label class="opt"><input class="chk" type="checkbox" data-layer="hydro">

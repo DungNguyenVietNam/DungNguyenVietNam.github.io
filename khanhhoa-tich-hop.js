@@ -78,12 +78,17 @@ function dungPanel() {
   // nên ẩn nó đi, tránh hai chỗ điều khiển chồng nhau gây mâu thuẫn trạng thái.
   const cu = document.getElementById('chk-forecast');
   if (cu) {
+    // Dùng style.display chứ KHÔNG dùng thuộc tính `hidden`: quy tắc
+    // .opt{display:flex} trong vỏ ghi đè display:none của UA stylesheet,
+    // nên đặt hidden thôi thì hàng vẫn hiện ra.
+    const an = (e) => { if (e) e.style.display = 'none'; };
     const row = cu.closest('.opt');
-    if (row) row.hidden = true;
+    an(row);
     const hint = row?.nextElementSibling;
-    if (hint?.classList.contains('hint')) hint.hidden = true;
+    if (hint?.classList.contains('hint')) an(hint);
     const hr = row?.previousElementSibling;
-    if (hr?.classList.contains('hr')) hr.hidden = true;
+    if (hr?.classList.contains('hr')) an(hr);
+    cu.checked = false;   // tránh vỏ tự vẽ lớp cũ khi khởi động
   }
 
   const body = el('div', { class: 'p-body' });
